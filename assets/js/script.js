@@ -1,27 +1,36 @@
-var streamingSearch = "breaking%20bad"
-//Adding  api for javascript
-function getData() {
-  const response = fetch('http://www.omdbapi.com/?i=tt3896198&apikey=5a9d4733')
-  const data = response.json()
-}
-//Now we've received a response from our HTTP request, and we can work with it.
-//However, the response is in JSON, and we need to convert that JSON in to JavaScript objects in order to work with it.
-//Begin accessing JSON data here
-//var data = JSON.parse(this.response)
+var searchBtn = document.querySelector("#searchBtn");
 
-//data.forEach(movie => {
-  // Log each movie's title
-  //console.log(data)
-//})
+var input = document.getElementById("movie");
 
-function getStreaming() {
-  fetch(`https://api.watchmode.com/v1/autocomplete-search/?apiKey=hUHcgOupDPISQvPxFO2U6cpCngXRMGQsbJnOd204&search_value=${streamingSearch}&search_type=1`)
+var imdbID = "tt";//find the tt code
+
+// find Ids
+function gatherData() {
+  fetch(`https://api.watchmode.com/v1/search/?apiKey=hUHcgOupDPISQvPxFO2U6cpCngXRMGQsbJnOd204&search_field=name&search_value=${input}`)
   .then((response)=>response.json())
-  .then((data)=> console.log(data.results[0]))
-    //const data = response.json() 
-  }
-  
-  //data.forEach(service => {
-   
-   
-getStreaming()
+  .then((data)=> console.log(data))
+console.log(input.value)
+}
+
+// omdb
+// function getData() {
+//   fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=5a9d4733`)
+//   .then((response)=>response.json())
+//   .then((data)=> console.log(data))
+// }
+
+// // watchmode autocomplete
+function getStreaming() {
+  fetch(`https://api.watchmode.com/v1/autocomplete-search/?apiKey=hUHcgOupDPISQvPxFO2U6cpCngXRMGQsbJnOd204&search_value=${input}`)
+  .then((response)=>response.json())
+  .then((data)=> console.log(data))
+}
+
+
+// function init() {
+// // getStreaming()
+// // getData()
+// getID()
+// }
+
+searchBtn.addEventListener("click", getStreaming);
