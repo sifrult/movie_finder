@@ -16,7 +16,7 @@ fetch(url, { method: 'Get' })
       console.log(json.results[0].id);
       var id = json.results[0].id
 
- 
+
   let url1 = `https://api.watchmode.com/v1/title/${id}/sources/?apiKey=${api}`;
 
   fetch(url1, { method: 'Get' })
@@ -26,7 +26,7 @@ fetch(url, { method: 'Get' })
       console.log(data);
     });
 
-      
+
     });
   }
 
@@ -43,8 +43,7 @@ function getData() {
        console.log(data.Search[0].Poster);
        let image = "url('" + data.Search[0].Poster + "')";
       document.body.style.backgroundImage = image;
-      document.body.style.backgroundRepeat = "no-repeat";
-      document.body.style.backgroundSize = "auto";
+      document.body.classList.add("background")
     });
   }
 
@@ -53,7 +52,7 @@ function getData() {
     tmdbParameters();
     displaySearch();
   }
-  
+
 
 searchBtn.addEventListener("click", getResults);
 
