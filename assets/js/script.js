@@ -13,9 +13,24 @@ fetch(url, { method: 'Get' })
     .then((res) => res.json())
     .then((json) => {
       console.log(url);
-        console.log(json.results[0]);
+      console.log(json.results[0].id);
+      var id = json.results[0].id
+
+ 
+  let url1 = `https://api.watchmode.com/v1/title/${id}/sources/?apiKey=${api}`;
+
+  fetch(url1, { method: 'Get' })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(url1);
+      console.log(data);
+    });
+
+      
     });
   }
+
+
 
 // omdb
 function getData() {
@@ -39,12 +54,6 @@ function getData() {
     displaySearch();
   }
   
-
-// function init() {
-// // getStreaming()
-// // getData()
-// getID()
-// }
 
 searchBtn.addEventListener("click", getResults);
 
