@@ -36,6 +36,7 @@ function getData() {
   function getResults() {
     getData();
     tmdbParameters();
+    displaySearch();
   }
   
 
@@ -46,3 +47,14 @@ function getData() {
 // }
 
 searchBtn.addEventListener("click", getResults);
+
+function storeSearches() {
+  window.localStorage.setItem("searches",input.value);
+}
+
+function displaySearch() {
+  var results =  window.localStorage.getItem("searches");
+  document.getElementById("previousSearches").textContent = results;
+  console.log(results);
+  storeSearches();
+}
