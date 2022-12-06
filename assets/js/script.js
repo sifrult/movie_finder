@@ -5,7 +5,6 @@ var input = document.getElementById("movie");
 var api = 'hUHcgOupDPISQvPxFO2U6cpCngXRMGQsbJnOd204';
 var apiOmdb = '5a9d4733'
 
-
  //Fetches tmdb_id and tmdb_type
 function tmdbParameters() {
 let url = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=${api}&search_value=${input.value.replace(" ", "%20")}&search_type=1`;
@@ -41,14 +40,30 @@ function getData() {
     .then((res) => res.json())
     .then((data) => {
       console.log(url)
-       console.log(data.Search);
+       console.log(data.Search[0].Poster);
+       let image = "url('" + data.Search[0].Poster + "')";
+      document.body.style.backgroundImage = image;
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundSize = "auto";
     });
   }
 
   function getResults() {
     getData();
     tmdbParameters();
+    displaySearch();
   }
   
 
 searchBtn.addEventListener("click", getResults);
+
+function storeSearches() {
+  window.localStorage.setItem("searches",input.value);
+}
+
+function displaySearch() {
+  var results =  window.localStorage.getItem("searches");
+  document.getElementById("previousSearches").textContent = results;
+  console.log(results);
+  storeSearches();
+}
