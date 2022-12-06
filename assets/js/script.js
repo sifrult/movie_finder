@@ -4,13 +4,6 @@ var input = document.getElementById("movie");
 
 var api = 'hUHcgOupDPISQvPxFO2U6cpCngXRMGQsbJnOd204';
 var apiOmdb = '5a9d4733'
-// find Ids
-// function gatherData() {
-//   fetch(`https://api.watchmode.com/v1/search/?apiKey=hUHcgOupDPISQvPxFO2U6cpCngXRMGQsbJnOd204&search_field=name&search_value=${input}`)
-//   .then((response)=>response.json())
-//   .then((data)=> console.log(data))
-// console.log(input.value)
-// }
 
 
  //Fetches tmdb_id and tmdb_type
@@ -21,20 +14,24 @@ fetch(url, { method: 'Get' })
     .then((res) => res.json())
     .then((json) => {
       console.log(url);
-        console.log(json.results[0].tmdb_id)
-        console.log(json.results[0].tmdb_type);
+      console.log(json.results[0].id);
+      var id = json.results[0].id
+
+ 
+  let url1 = `https://api.watchmode.com/v1/title/${id}/sources/?apiKey=${api}`;
+
+  fetch(url1, { method: 'Get' })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(url1);
+      console.log(data);
+    });
+
+      
     });
   }
 
-// function resultDetails() {
-//   let url = `https://api.watchmode.com/v1/title/?apiKey=${api}&search_value=${input.value.replace(" ", "%20")}&search_type=1`;
 
-//   fetch(url, { method: 'Get' })
-//     .then((res) => res.json())
-//     .then((json) => {
-//       console.log(json);
-//     });
-// }
 
 // omdb
 function getData() {
@@ -44,7 +41,7 @@ function getData() {
     .then((res) => res.json())
     .then((data) => {
       console.log(url)
-       console.log(data.Search[0].Poster);
+       console.log(data.Search);
     });
   }
 
@@ -53,11 +50,5 @@ function getData() {
     tmdbParameters();
   }
   
-
-// function init() {
-// // getStreaming()
-// // getData()
-// getID()
-// }
 
 searchBtn.addEventListener("click", getResults);
