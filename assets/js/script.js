@@ -3,6 +3,7 @@ var searchBtn = document.querySelector("#searchBtn");
 var input = document.getElementById("movie");
 
 var api = 'hUHcgOupDPISQvPxFO2U6cpCngXRMGQsbJnOd204';
+var apiOmdb = '5a9d4733'
 // find Ids
 // function gatherData() {
 //   fetch(`https://api.watchmode.com/v1/search/?apiKey=hUHcgOupDPISQvPxFO2U6cpCngXRMGQsbJnOd204&search_field=name&search_value=${input}`)
@@ -12,32 +13,46 @@ var api = 'hUHcgOupDPISQvPxFO2U6cpCngXRMGQsbJnOd204';
 // }
 
 
-// Fetches tmdb_id and tmdb_type
+ //Fetches tmdb_id and tmdb_type
 function tmdbParameters() {
 let url = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=${api}&search_value=${input.value.replace(" ", "%20")}&search_type=1`;
 
 fetch(url, { method: 'Get' })
     .then((res) => res.json())
     .then((json) => {
-      console.log(url)
+      console.log(url);
         console.log(json.results[0].tmdb_id)
         console.log(json.results[0].tmdb_type);
     });
-}
+  }
+
+// function resultDetails() {
+//   let url = `https://api.watchmode.com/v1/title/?apiKey=${api}&search_value=${input.value.replace(" ", "%20")}&search_type=1`;
+
+//   fetch(url, { method: 'Get' })
+//     .then((res) => res.json())
+//     .then((json) => {
+//       console.log(json);
+//     });
+// }
 
 // omdb
-// function getData() {
-//   fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=5a9d4733`)
-//   .then((response)=>response.json())
-//   .then((data)=> console.log(data))
-// }
+function getData() {
+  let url = `http://www.omdbapi.com/?s=${input.value.replace(" ", "+")}&apikey=${apiOmdb}`;
 
-// // // watchmode autocomplete
-// function getStreaming() {
-//   fetch(`https://api.watchmode.com/v1/autocomplete-search/?apiKey=hUHcgOupDPISQvPxFO2U6cpCngXRMGQsbJnOd204&search_value=${input}`)
-//   .then((response)=>response.json())
-//   .then((data)=> console.log(data))
-// }
+  fetch(url, { method: 'Get' })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(url)
+       console.log(data.Search[0].Poster);
+    });
+  }
+
+  function getResults() {
+    getData();
+    tmdbParameters();
+  }
+  
 
 // function init() {
 // // getStreaming()
@@ -45,4 +60,4 @@ fetch(url, { method: 'Get' })
 // getID()
 // }
 
-searchBtn.addEventListener("click", tmdbParameters);
+searchBtn.addEventListener("click", getResults);
