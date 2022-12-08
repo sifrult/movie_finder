@@ -12,7 +12,6 @@ let url = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=${api}&searc
 fetch(url, { method: 'Get' })
     .then((res) => res.json())
     .then((json) => {
-      console.log(url);
       console.log(json.results[0].id);
       var id = json.results[0].id
 
@@ -22,8 +21,6 @@ fetch(url, { method: 'Get' })
   fetch(url1, { method: 'Get' })
     .then((res) => res.json())
     .then((data) => {
-      console.log(url1);
-      console.log(data);
       var results = []
       for (var i = 0; i < data.length; i++) {
         results.push(data[i].name) 
@@ -54,18 +51,35 @@ function getData() {
   fetch(url, { method: 'Get' })
     .then((res) => res.json())
     .then((data) => {
-      console.log(url)
-       console.log(data.Search[0].Poster);
+      console.log(data);
        let image = "url('" + data.Search[0].Poster + "')";
       document.body.style.backgroundImage = image;
       document.body.classList.add("background")
     });
   }
-
+  function getInfo() {
+    let url = `http://www.omdbapi.com/?t=${input.value.replace(" ", "+")}&apikey=${apiOmdb}`;
+  
+    fetch(url, { method: 'Get' })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        document.getElementById("cast").textContent = (data.Actors);
+        document.getElementById("director").textContent= data.Director;
+        document.getElementById("genre").textContent = (data.Genre);
+        document.getElementById("released").textContent = (data.Released);
+        for( var i=0; i< data.Ratings.length; i++ ) {
+          var li = document.createElement("li");
+          li.textContent = data.Ratings[i].Source + " " + data.Ratings[i].Value;
+          document.getElementById('ratings').appendChild(li);
+        }
+      });
+    }
   function getResults() {
     getData();
     tmdbParameters();
     displaySearch();
+    getInfo();
   }
 
 
