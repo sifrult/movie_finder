@@ -57,30 +57,24 @@ function tmdbParameters() {
           img.src = data.trailer_thumbnail;
           link.appendChild(img)
 
-        })
-    });
-}
+
+          var imdbid = data.imdb_id
 
 
-
-
-// omdb
-function getData() {
-  let url = `http://www.omdbapi.com/?s=${input.value.replace(" ", "+")}&apikey=${apiOmdb}`;
-  fetch(url, { method: 'Get' })
+  let url3 = `http://www.omdbapi.com/?i=${imdbid}&apikey=${apiOmdb}`;
+  fetch(url3, { method: 'Get' })
     .then((res) => res.json())
     .then((data) => {
       document.body.style.backgroundImage = "";
       console.log(data);
-      let image = "url('" + data.Search[0].Poster + "')";
+      let image = "url('" + data.Poster + "')";
       document.body.style.backgroundImage = image;
       document.body.classList.add("background")
-    });
-}
-function getInfo() {
-  let url = `http://www.omdbapi.com/?t=${input.value.replace(" ", "+")}&apikey=${apiOmdb}`;
 
-  fetch(url, { method: 'Get' })
+
+  let url4 = `http://www.omdbapi.com/?i=${imdbid}&apikey=${apiOmdb}`;
+
+  fetch(url4, { method: 'Get' })
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -95,16 +89,31 @@ function getInfo() {
         li.textContent = data.Ratings[i].Source + " " + data.Ratings[i].Value;
 
         document.getElementById('ratings').appendChild(li);
-      }
 
-
+    }});
+  })
     });
-}
+})}
+
+
+
+
+// // omdb
+// function getData() {
+
+// }
+// function getInfo() {
+
+//       }
+
+
+//     });
+// }
 function getResults() {
-  getData();
+  // getData();
   tmdbParameters();
   displaySearch();
-  getInfo();
+  // getInfo();
 }
 
 
