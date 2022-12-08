@@ -24,26 +24,23 @@ fetch(url, { method: 'Get' })
     .then((data) => {
       console.log(url1);
       console.log(data);
-
+      var results = []
       for (var i = 0; i < data.length; i++) {
-        // console.log(data[i].name);
-        var results = []
-        results.push(data[i].name)
-        results = JSON.stringify(results)
-        console.log(results);
-        // console.log(results);
-        // results = results.filter( function(item, index, inputArray){
-        //   return inputArray.indexOf(item) == index;
-        // });
-        
-        function removeDuplicates(data1) {
+        results.push(data[i].name) 
+      }
+      function removeDuplicates(data1) {
           return data1.filter((value, index) => data1.indexOf(value) === index);
         }
-        console.log(removeDuplicates(results));
-        
-      }
-    });
+        var remove = removeDuplicates(results);
 
+        for( var i=0; i< remove.length; i++ ) {
+          var streaming = remove[i];
+        var li = document.createElement('li');
+        li.textContent = streaming
+
+        document.getElementById('streamingList').appendChild(li);
+        }
+    });
 
     });
   }
