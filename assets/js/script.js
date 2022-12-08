@@ -64,10 +64,12 @@ function getData() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        document.getElementById("cast").textContent = (data.Actors);
+        document.getElementById("cast").textContent = data.Actors;
         document.getElementById("director").textContent= data.Director;
-        document.getElementById("genre").textContent = (data.Genre);
-        document.getElementById("released").textContent = (data.Released);
+        document.getElementById("genre").textContent = data.Genre;
+        document.getElementById("released").textContent = data.Released;
+        document.getElementById("titleYear").textContent = data.Title + " " + data.Year;
+
         for( var i=0; i< data.Ratings.length; i++ ) {
           var li = document.createElement("li");
           li.textContent = data.Ratings[i].Source + " " + data.Ratings[i].Value;
