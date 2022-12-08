@@ -37,10 +37,29 @@ fetch(url, { method: 'Get' })
 
         document.getElementById('streamingList').appendChild(li);
         }
+        
+       
     });
+  
+  let url2 = url = `https://api.watchmode.com/v1/title/${id}/details/?apiKey=${api}`;
+  fetch(url2, { method: 'Get' })
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data);
+    console.log(data.trailer_thumbnail);
+     var link = document.createElement("a")
+    link.href = data.trailer;
+    document.getElementById("trailer").appendChild(link)
+    var img = document.createElement("img");
+    img.src = data.trailer_thumbnail;
+    link.appendChild(img)
+   
+  })
+});
 
-    });
+
   }
+
 
 
 
