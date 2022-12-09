@@ -66,7 +66,7 @@ function init() {
           var imdbid = data.imdb_id
 
 // Displays movie data and background
-  let url4 = `http://www.omdbapi.com/?i=${imdbid}&apikey=${apiOmdb}`;
+  let url4 = `https://www.omdbapi.com/?i=${imdbid}&apikey=${apiOmdb}`;
 
   fetch(url4, { method: 'Get' })
     .then((res) => res.json())
