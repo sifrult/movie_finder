@@ -9,38 +9,43 @@
     <title>Movie Finder</title>
     <link rel="stylesheet" href="./assets/css/style">
     <link rel="stylesheet" href="./assets/css/reset">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Hind+Siliguri&display=swap" rel="stylesheet">
 </head>
 
 <header style="text-align: center; padding-top: 4%;" ;>
-    <h1> Movie Finder </h1>
+    <h1 id="h1" style="display:block"> Movie Finder </h1>
 
     <input type='text' placeholder="Search for movies here" id="movie">
-    <button id="searchBtn"> Search </button>
+    <button class="button-13" role="button" id="searchBtn">Search</button>
 </header>
 
 <body id="content">
-    <div class="streaming-flexbox">
-        <div class="flexbox-streaming" id="titleYear"></div>
-    </div>
-    <div class="flexbox-container">
-        <div class="flexbox-item flexbox-item-1">
-            Cast:<br>
-            <span id="cast"></span><br>
-            Director:<br>
-            <span id="director"></span><br>
-            Genre:<br>
-            <span id="genre"></span><br>
-            Release Date:<br>
-            <span id="released"></span><br>
-            Ratings:<br>
+
+    <div class="movie-title" id="titleYear"></div>
+
+    <div class="main-content">
+        <div class="left column">
+            <span id="cast"></span><br><br>
+            <span id="director"></span><br><br>
+            <span id="genre"></span><br><br>
+            <span id="released"></span><br><br>
+            <span id="ratingTitle" style="display: none">Ratings:<br>
             <ul id="ratings"></ul><br>
         </div>
-        <div class="flexbox-item flexbox-item-2">
+        <div class="middle column">
+            <span id="streamingServices" style="display: none">Streaming Services:</span>
             <ul id="streamingList"></ul>
             <div id="trailer"></div>
         </div>
-        <div id="previousSearches" class="flexbox-item flexbox-item-3">Previous searches</div>
+        <div class="right column">
+            <span id="prevSearches" style="display: none">Previous Searches:</span>
+            <div id="previousSearches"></div>
+        </div>
     </div>
+
+    <footer>Streaming data powered by <a href="https://www.watchmode.com/">Watchmode.com</a></footer>
 
     <script src="./assets/js/script.js"></script>
 </body>

@@ -5,8 +5,9 @@ var input = document.getElementById("movie");
 var api = 't034dYdEAkk4zauagceOr9aqoCbUIueAStvmXnXs';
 var apiOmdb = '5a9d4733'
 
-//Fetches tmdb_id and tmdb_type
-function tmdbParameters() {
+// Initializes the functions
+// Grabs the id for watchmode
+function init() {
   let url = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=${api}&search_value=${input.value.replace(" ", "%20")}&search_type=1`;
 
   fetch(url, { method: 'Get' })
@@ -15,7 +16,7 @@ function tmdbParameters() {
       console.log(json.results[0].id);
       var id = json.results[0].id
 
-
+// Displays streaming services
       let url1 = `https://api.watchmode.com/v1/title/${id}/sources/?apiKey=${api}`;
 
       fetch(url1, { method: 'Get' })
@@ -33,6 +34,8 @@ function tmdbParameters() {
           }
           var remove = removeDuplicates(results);
 
+          document.getElementById("streamingServices").style.display = "block";
+
           for (var i = 0; i < remove.length; i++) {
             var streaming = remove[i];
             var li = document.createElement('li');
@@ -43,6 +46,7 @@ function tmdbParameters() {
 
         });
 
+// Displays thumbnail and trailer
       let url2 = url = `https://api.watchmode.com/v1/title/${id}/details/?apiKey=${api}`;
       fetch(url2, { method: 'Get' })
         .then((res) => res.json())
@@ -54,69 +58,56 @@ function tmdbParameters() {
           link.href = data.trailer;
           document.getElementById("trailer").appendChild(link)
           var img = document.createElement("img");
+          img.classList.add("thumbnail")
           img.src = data.trailer_thumbnail;
           link.appendChild(img)
 
 
           var imdbid = data.imdb_id
 
-
-  let url3 = `http://www.omdbapi.com/?i=${imdbid}&apikey=${apiOmdb}`;
-  fetch(url3, { method: 'Get' })
-    .then((res) => res.json())
-    .then((data) => {
-      document.body.style.backgroundImage = "";
-      console.log(data);
-      let image = "url('" + data.Poster + "')";
-      document.body.style.backgroundImage = image;
-      document.body.classList.add("background")
-
-
+// Displays movie data and background
   let url4 = `http://www.omdbapi.com/?i=${imdbid}&apikey=${apiOmdb}`;
 
   fetch(url4, { method: 'Get' })
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      document.getElementById("cast").textContent = data.Actors;
-      document.getElementById("director").textContent = data.Director;
-      document.getElementById("genre").textContent = data.Genre;
-      document.getElementById("released").textContent = data.Released;
+
+      document.body.style.backgroundImage = "";
+      console.log(data);
+      let image = "url('" + data.Poster + "')";
+      document.body.style.backgroundImage = image;
+      document.body.classList.add("background")
+
+      document.getElementById("cast").textContent = "Cast: " + data.Actors;
+      document.getElementById("director").textContent = "Director: " + data.Director;
+      document.getElementById("genre").textContent = "Genre: " + data.Genre;
+      document.getElementById("released").textContent = "Release date: " + data.Released;
       document.getElementById("titleYear").textContent = data.Title + " " + data.Year;
       document.getElementById('ratings').innerHTML = "";
+
+      document.getElementById('ratingTitle').style.display = "block";
+
+
       for (var i = 0; i < data.Ratings.length; i++) {
         var li = document.createElement("li");
         li.textContent = data.Ratings[i].Source + " " + data.Ratings[i].Value;
-
         document.getElementById('ratings').appendChild(li);
 
-    }});
+      }
+    });
   })
     });
-})}
-
-
-
-
-// // omdb
-// function getData() {
-
-// }
-// function getInfo() {
-
-//       }
-
-
-//     });
-// }
-function getResults() {
-  // getData();
-  tmdbParameters();
-  displaySearch();
-  // getInfo();
 }
 
+// Calls the other functions
+function getResults() {
+  init();
+  displaySearch();
+  document.getElementById("h1").style.display = "none";
+}
 
+// Button event listener, and Enter listener
 searchBtn.addEventListener("click", getResults);
 document.getElementById('movie').addEventListener('keypress', function(event)
 {if(event.key === 'Enter') {
@@ -125,36 +116,29 @@ document.getElementById('movie').addEventListener('keypress', function(event)
 }
 })
 
-
-
-
-
-
-
-
-
+// Store and display searches
 var searches = []
-
 function storeSearches() {
   window.localStorage.setItem("searches", JSON.stringify(searches));
 }
-
 function displaySearch() {
 
   var prevSearches = document.getElementById("previousSearches");
   prevSearches.innerHTML = "";
 
-
   searches.push(input.value);
   input.textContent = "";
   console.log(searches)
 
+ document.getElementById('prevSearches').style.display = "block";
 
   for (var i = 0; i < searches.length; i++) {
     var search = searches[i]
     var li = document.createElement('li');
     li.textContent = search;
     prevSearches.appendChild(li)
+    input.value="";
+
   }
 
   storeSearches();
