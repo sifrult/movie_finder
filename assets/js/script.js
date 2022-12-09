@@ -83,7 +83,7 @@ function init() {
       document.getElementById("director").textContent = "Director: " + data.Director;
       document.getElementById("genre").textContent = "Genre: " + data.Genre;
       document.getElementById("released").textContent = "Release date: " + data.Released;
-      document.getElementById("titleYear").textContent = data.Title + " " + data.Year;
+      document.getElementById("titleYear").textContent = data.Title + " - " + data.Year;
       document.getElementById('ratings').innerHTML = "";
 
       document.getElementById('ratingTitle').style.display = "block";

@@ -94,11 +94,17 @@ body {
     text-align: center;
     margin-top: 5px;
     margin-bottom: 5px;
+    color: #123C69;
 }
 
 .right {
     min-height: auto;
     text-align: center;
+}
+
+#streamingServices, .movie-title {
+    font-weight: bold;
+    color: #042950;
 }
 
 #streamingList, #previousSearches {
