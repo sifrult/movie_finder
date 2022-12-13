@@ -17,12 +17,6 @@ Acceptance Criteria:
     GIVEN I am looking for where to watch a movie and other information about it
     WHEN I search a movie
     THEN the website tells me the title and year the movie was released
-    WHEN I
+    WHEN I 
 
-
-# Screenshot 
-#
-#
-# Link to deployed website
-#
-#
+![](./assets/images/2022-12-11%2013-46-09.gif)
